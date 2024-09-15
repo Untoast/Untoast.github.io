@@ -24,7 +24,7 @@
             left: 50%;
             transform: translateX(-50%);
             width: auto;
-            max-width: 600px;
+            max-width: 90%; /* Make it responsive */
         }
         .keyboard-row {
             display: flex;
@@ -32,14 +32,14 @@
             width: 100%;
         }
         .key {
-            width: 40px;
-            height: 40px;
+            width: 4rem; /* Changed from 5rem to 4rem for smaller keys */
+            height: 4rem; /* Changed from 5rem to 4rem for smaller keys */
             background-color: #f0f0f0;
             border-radius: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 25px;
+            font-size: 1.5rem; /* Changed from 2rem to 1.5rem for smaller font size */
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             cursor: pointer;
             user-select: none;
@@ -49,6 +49,14 @@
         }
         .key:hover {
             background-color: #e0e0e0;
+        }
+        /* Add a media query for responsiveness */
+        @media (max-width: 600px) {
+            .key {
+                width: 3.5rem; /* Smaller keys on smaller screens */
+                height: 3.5rem; /* Smaller keys on smaller screens */
+                font-size: 1.2rem; /* Smaller font size on smaller screens */
+            }
         }
     </style>
     <div id="keyboard"></div>
