@@ -50,7 +50,6 @@ async function Main() {
     }
     async function ApplyRules(Word) {
         if (Guessed) { return }
-        console.log(wordToGuess)
         CurrentIndex++
         Word = Word.toLowerCase()
         //Test if word had already been submitted
