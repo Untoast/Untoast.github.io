@@ -4,6 +4,8 @@ let word = document.getElementById("word");
 let submit = document.getElementById("submit");
 let result = document.getElementById("result")
 let GuessesList = document.getElementById("Guesses")
+let Stop = document.getElementById("Stop")
+let Attempts = document.getElementById("Attempts")
 
 var SubmittedWords = []
 var CurrentIndex = 0
@@ -25,25 +27,28 @@ async function Main() {
     function Noti(Text, color, keep) {
         result.style.filter = "blur(0px)";
         result.style.color = color;
-        result.innerHTML = Text
         if (keep == true) { return }
         setTimeout(() => {
             result.style.color = "transparent";
             result.style.filter = "blur(15px)";
-        }, 3000);
+        }, 1000);
     }
 
+    function UpdateAttempts(Amt) {
+        Attempts.style.filter = "opacity(1)"
+        Attempts.style.filter = "blur(15px)"
+        setTimeout(() => {
+            Attempts.innerHTML = Amt
+            Attempts.style.filter = "opacity(0)"
+            Attempts.style.filter = "blur(0px)"
+        }, 150);
+    }
     async function ApplyRules(Word) {
         if (Guessed) { return }
         console.log(wordToGuess)
         CurrentIndex++
         Word = Word.toLowerCase()
         //Test if word had already been submitted
-
-        if (!words.includes(Word)) {
-            Noti("Word not in list!", "#ff0000")
-            return
-        }
         if (SubmittedWords.includes(Word)) {
             Noti("Word already submitted!", "#ff0000")
             return
@@ -52,7 +57,12 @@ async function Main() {
             Noti("Word length must be 5 characters!", "#ff0000")
             return
         }
+        if (!words.includes(Word)) {
+            Noti("Word not in list!", "#ff0000")
+            return
+        }
         Guesses++
+        UpdateAttempts(Guesses)
         SubmittedWords[CurrentIndex] = Word
         //
         let CorrectPosition = []
@@ -78,7 +88,7 @@ async function Main() {
         }
 
         if (Word === wordToGuess) {
-            Noti("You successfully Guessed " + wordToGuess + " In a total of " + CurrentIndex++ + " Guesses!", "#00ff00", true)
+            Noti("You successfully Guessed " + wordToGuess + " In a total of " + CurrentIndex++ + " Guesses! Press New to play again.", "#00ff00", true)
             Guessed = true
         }
 
@@ -136,6 +146,18 @@ async function Main() {
         event.preventDefault();
         ApplyRules(word.value)
         console.log("Clicked, Submited word: " + word.value);
+    });
+
+    Stop.addEventListener("click", (event) => {
+        event.preventDefault();
+        console.log("Clicked, Stopped game")
+        Noti("You gave up! The word was \'" + wordToGuess + "\'! Press New to play again.", "#ff0000", true)
+        Guessed = true
+    });
+
+    Refresh.addEventListener("click", (event) => {
+        event.preventDefault();
+        window.location.reload();
     });
 }
 
