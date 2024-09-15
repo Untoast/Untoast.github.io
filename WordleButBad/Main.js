@@ -26,6 +26,7 @@ async function Main() {
     wordToGuess = await getRandomLine()
     function Noti(Text, color, keep) {
         result.style.filter = "blur(0px)";
+        result.innerHTML = Text
         result.style.color = color;
         if (keep == true) { return }
         setTimeout(() => {
@@ -109,9 +110,10 @@ async function Main() {
 
             if (CorrectPosition.at(i)) {
                 if (!AlteredKeyboardItems[letterInSubmitted] || AlteredKeyboardItems[letterInSubmitted] == "WrongPos") {
-                    letterOnKeyboard.style.background = "#00ff00";; }
-                    letterSpan.style.color = "ffffff";
-                    letterSpan.style.background = "#00ff00"
+                    letterOnKeyboard.style.background = "#00ff00";;
+                }
+                letterSpan.style.color = "ffffff";
+                letterSpan.style.background = "#00ff00"
                 AlteredKeyboardItems[letterInSubmitted] = "CorrectPos"
             }
             else if (InWord.at(i)) {
@@ -150,7 +152,6 @@ async function Main() {
 
     Stop.addEventListener("click", (event) => {
         event.preventDefault();
-        console.log("Clicked, Stopped game")
         Noti("You gave up! The word was \'" + wordToGuess + "\'! Press New to play again.", "#ff0000", true)
         Guessed = true
     });
