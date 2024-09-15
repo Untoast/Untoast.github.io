@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Worlde but bad</title>
+    <title>Wordle but bad</title>
     <form id="GuessForm">
+        <button id="Stop" style="color: rgb(209, 0, 0); background-color: rgb(100, 0, 0); border: 2px solid rgb(209, 0, 0);" class="Input" type="button">Give Up</button>
         <input id="word" class="Input" type="text" placeholder="Word" maxlength="5">
         <button id="submit" class="Input" type="submit">Submit</button>
-        <button id="Refresh" class="Input">New</button>
+        <button id="Refresh" class="Input" type="button">New</button>
     </form>
+    <div id="Attempts">0</div>
     <div id="result">.</div>
     <div id="Guesses"></div>
     <style>
@@ -37,8 +39,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 18px;
-            font-family: 'Arial', sans-serif, 'monospace';
+            font-size: 25px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             cursor: pointer;
             user-select: none;
             margin: 0 2px;
