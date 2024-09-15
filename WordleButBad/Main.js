@@ -15,6 +15,10 @@ var Guessed = false
 
 var GuessesListString = ""
 var AlteredKeyboardItems = []
+
+//confetti effect
+// Initialize tsParticles with the bigCircles preset
+
 async function Main() {
     const response = await fetch('https://raw.githubusercontent.com/Untoast/Words/main/Words.txt'); // Fetch from the URL
     const text = await response.text(); // Get the text content
@@ -51,7 +55,7 @@ async function Main() {
         Word = Word.toLowerCase()
         //Test if word had already been submitted
         if (SubmittedWords.includes(Word)) {
-            Noti("Word already submitted!", "#ff0000")
+            Noti("Word has already been submitted!", "#ff0000")
             return
         }
         if (Word.length != 5) {
@@ -89,8 +93,39 @@ async function Main() {
         }
 
         if (Word === wordToGuess) {
-            Noti("You successfully Guessed " + wordToGuess + " In a total of " + CurrentIndex++ + " Guesses! Press New to play again.", "#00ff00", true)
+            Noti("You successfully guessed " + wordToGuess + " in " + Guesses + " attempts! Press new to play again.", "#00ff00", true)
             Guessed = true
+            const duration = 5 * 1000,
+            animationEnd = Date.now() + duration,
+            defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+          
+          function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+          }
+          
+          const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+          
+            if (timeLeft <= 0) {
+              return clearInterval(interval);
+            }
+          
+            const particleCount = 50 * (timeLeft / duration);
+          
+            // since particles fall down, start a bit higher than random
+            confetti(
+              Object.assign({}, defaults, {
+                particleCount,
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+              })
+            );
+            confetti(
+              Object.assign({}, defaults, {
+                particleCount,
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+              })
+            );
+          }, 250);
         }
 
         //Add to guesses list
@@ -156,7 +191,7 @@ async function Main() {
 
     Stop.addEventListener("click", (event) => {
         event.preventDefault();
-        Noti("You gave up! The word was \'" + wordToGuess + "\'! Press New to play again.", "#ff0000", true)
+        Noti("You gave up after " + Guesses + " guesses! The word was \'" + wordToGuess + "\'! Press new to play again.", "#ff0000", true)
         Guessed = true
     });
 
@@ -165,5 +200,6 @@ async function Main() {
         window.location.reload();
     });
 }
+
 
 Main()
