@@ -1,0 +1,47 @@
+body {
+    background-color: #292929;
+    transition: .2s;
+}
+
+#result {
+    filter: blur(15px);
+    padding-top: 10px;
+    color: transparent;
+    font-family: 'Arial', Courier, monospace;
+    transition: .5s;
+    text-align: center;
+    font-size: 2ch;
+}
+
+
+#Guesses {
+    color: #000;
+    display: block;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'arial', Courier, monospace;
+    line-height: 1.5;
+    margin-top: 20px;
+    justify-content: center;
+    text-align: center;
+    transition: .2s;
+}
+
+.Input {
+    border-radius: 5ch;
+    border: 2px solid #000;
+    background-color: #f0f0f0;
+    padding: 5px;
+    justify-content: center;
+    text-align: center;
+    font-size: 2ch;
+    transition: .2s;
+}
+
+
+#GuessForm {
+    justify-content: center;
+    display: flex;
+    gap: 10px;
+    transition: .2s;
+}
