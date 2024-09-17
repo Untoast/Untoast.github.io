@@ -13,7 +13,7 @@
     <div id="Attempts">0</div>
     <div id="result">.</div>
     <div id="Guesses"></div>
-    <label id="Version">Version 1.4</label>
+    <label id="Version">Version 1.4.5</label>
     <div id="keyboard"></div>
     <script>
         const keyboard = document.getElementById('keyboard');
@@ -27,7 +27,7 @@
             row.split('').forEach(letter => {
                 const key = document.createElement('div');
                 key.className = 'key';
-                key.id = letter.toLocaleLowerCase()
+                key.id = letter.toLocaleLowerCase();
                 key.textContent = letter;
                 key.addEventListener('click', () => {
                     const wordInput = document.getElementById('word');
@@ -39,6 +39,18 @@
             });
             
             keyboard.appendChild(rowDiv);
+            
+            // Add Backspace Key to the last row
+            if (index === rows.length - 1) {
+                const backspaceKey = document.createElement('div');
+                backspaceKey.className = 'key';
+                backspaceKey.textContent = '⌫'; // Backspace symbol
+                backspaceKey.addEventListener('click', () => {
+                    const wordInput = document.getElementById('word');
+                    wordInput.value = wordInput.value.slice(0, -1); // Remove last character
+                });
+                rowDiv.appendChild(backspaceKey); // Append backspace key to the last row
+            }
         });
         
         const wordInputt = document.getElementById('word');
