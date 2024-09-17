@@ -81,6 +81,8 @@ body {
 }
 
 .Input {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none; /* Remove default styling */
     border-radius: 5ch;
     border: none;
     background-color: #6868680a;
@@ -116,6 +118,11 @@ body {
     opacity: 1;
 }
 
+.Input:focus {
+    outline: none; /* Remove default outline */
+    background-color: #6868680a; /* Keep the same background color */
+    /* Add any other styles you need */
+}
 
 #Attempts {
     position: fixed;
