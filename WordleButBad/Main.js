@@ -425,3 +425,4 @@ function checkViewport() {
 // Check viewport on load and on resize
 window.addEventListener('load', checkViewport);
 window.addEventListener('resize', checkViewport);
+window.addEventListener('orientationchange', checkViewport);
