@@ -52,14 +52,12 @@ body {
 
 @media (max-width: 820px) {
     #GuessForm {
-        flex-direction: column;
-        padding: 1rem; /* Adjust padding for smaller screens */
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
         gap: 1rem; /* Maintain gap for spacing */
-        max-height: 30vh;
+        max-height: 30vh; /* Adjusted height for mobile */
         overflow-y: auto;
         margin-bottom: 0;
         z-index: 10;
@@ -74,6 +72,11 @@ body {
         justify-content: center; /* Center content horizontally */
         align-items: center; /* Center content vertically */
         text-align: center; /* Center text */
+    }
+
+    #Guesses {
+        max-height: 25vh; /* Adjusted height for mobile */
+        overflow-y: auto; /* Ensure scrolling if content exceeds height */
     }
 }
 
@@ -194,7 +197,7 @@ span {
     }
 
     #Guesses {
-        max-height: calc(100vh - 30vh - 20px);
+        max-height: calc(50vh - 20px) !important;
         overflow-y: scroll;
     }
 
