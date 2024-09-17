@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle Thingy</title>
+    <form id="GuessForm">
+        <button id="Stop" class="Input" type="button">Give Up</button>
+        <input id="word" class="Input" type="text" placeholder="Word" maxlength="5">
+        <button id="submit" class="Input" type="submit">Submit</button>
+        <button id="Refresh" class="Input" type="button">New</button>
+    </form>
+    <div id="Attempts">0</div>
+    <div id="result">.</div>
+    <div id="Guesses"></div>
+    <label id="Version">Version 1.4</label>
+    <div id="keyboard"></div>
+    <script>
+        const keyboard = document.getElementById('keyboard');
+        const letters = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+        const rows = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
+        
+        rows.forEach((row, index) => {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = `keyboard-row row-${index + 1}`;
+            
+            row.split('').forEach(letter => {
+                const key = document.createElement('div');
+                key.className = 'key';
+                key.id = letter.toLocaleLowerCase()
+                key.textContent = letter;
+                key.addEventListener('click', () => {
+                    const wordInput = document.getElementById('word');
+                    if (wordInput.value.length < 5) {
+                        wordInput.value += letter.toLowerCase();
+                    }
+                });
+                rowDiv.appendChild(key);
+            });
+            
+            keyboard.appendChild(rowDiv);
+        });
+        
+        const wordInputt = document.getElementById('word');
+        const buttonst = [document.getElementById('Stop'), document.getElementById('submit'), document.getElementById('Refresh')];
+        const attempts = document.getElementById('Attempts');
+        const resultt = document.getElementById('result');
+        const guessest = document.getElementById('Guesses');
+
+        wordInputt.addEventListener('focus', () => {
+            if (window.innerWidth > 820) { // Check if in desktop mode
+                document.querySelectorAll('#GuessForm .Input').forEach(element => {
+                    element.classList.add('transparent'); // Add transparency class
+                });
+            }
+            wordInputt.classList.add('active');
+            buttons.forEach(button => {
+                button.classList.add('inactive');
+            });
+        });
+
+        wordInputt.addEventListener('blur', () => {
+            document.querySelectorAll('#GuessForm .Input').forEach(element => {
+                element.classList.remove('transparent'); // Remove transparency class
+            });
+            wordInputt.classList.remove('active');
+            buttons.forEach(button => {
+                button.classList.remove('inactive');
+            });
+        });
+    </script>
+<body>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div id="result" style="margin-right: 20px;">.</div>
+    </div>
+    <div id="Guesses"></div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="Main.js"></script>
+    <link rel="stylesheet" href="Index.css">
+    <div id="errorText" class="hidden">
+        <div id="errorMessage">I am claustrophobic, this space is too small!<br \> Please rotate your device or move to a larger screen!</div>
+        <!-- Make both same size-->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <img src="Resources/Images/RotateIcon.svg" alt="Rotate Device" id="rotateImage" class="errorImage">
+            <img src="Resources/Images/ExpandIcon.svg" alt="Expand Screen Space" id="expandImage" class="errorImage">
+        </div>
+    </div>
+</body>
+</html>
