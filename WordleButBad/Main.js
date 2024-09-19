@@ -56,10 +56,9 @@ async function Main() {
         if (Waiting) { Noti("Wait for previous guess to finish...", "#ff0000"); return }
         CurrentIndex++
 
-        //Test if word had already been submitted
         Word = Word.toLowerCase()
         //Test if word had already been submitted
-        if (SubmittedWords.includes(wordToGuess)) {
+        if (SubmittedWords.includes(Word)) {
             Noti("Word has already been submitted!", "#ff0000")
             return
         }
@@ -325,7 +324,6 @@ async function Main() {
 
                 const particleCount = 50 * (timeLeft / duration);
 
-                // since particles fall down, start a bit higher than random
                 confetti(
                     Object.assign({}, defaults, {
                         particleCount,
@@ -354,6 +352,75 @@ async function Main() {
         if (Guessed) { return }
         Noti("You gave up after " + Guesses + " guesses! The word was \'" + wordToGuess + "\'! Press new to play again.", "#ff0000", true)
         Guessed = true
+        setTimeout(async () => {
+            let form = document.getElementById("GuessForm")
+            form.style.transition = "1s ease-in-out"
+            for (let i = 0; i < form.length; i++) {
+                    form[i].style.transition = "1s"
+                    form[i].style.padding = "0"
+                    form[i].style.fontSize = "0"
+                    form[i].style.filter = "blur(15px)"
+                    form[i].style.opacity = "0"
+                
+            }
+            form.style.padding = "0"
+            form.style.border = "none"
+            form.style.background = "transparent"
+            form.style.border = "none"
+            form.style.boxShadow = "none"
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            let refresh = document.getElementById("Refresh") 
+            for (let i = 0; i < form.length; i++) {
+                if (form[i].id != "Refresh") {
+                    form[i].style.display = "none"
+                }
+            }
+            refresh.innerHTML = "New Game"
+
+            //set all of refresh to default
+            // border-radius: 5ch;
+            // border: none;
+            // background-color: #6868680a;
+            // backdrop-filter: blur(100px);
+            // padding: .3ch;
+            // padding-left: 1ch;
+            // padding-right: 1ch;
+            // justify-content: center;
+            // text-align: center;
+            // font-size: 2rem;
+            // transition: .2s;
+            // cursor: pointer;
+            // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            // border: 1px solid #ffffff11;
+            // filter: drop-shadow(#0000006b 0px 0px 5px);
+            // color: #fff;
+            // font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+            // margin: 0px 5px 0px 5px;   
+            refresh.style.borderRadius = "5ch"
+            refresh.style.border = "none"
+            refresh.style.background = "#6868680a"
+            refresh.style.backdropFilter = "blur(100px)"
+            refresh.style.padding = ".3ch"
+            refresh.style.paddingLeft = "1ch"
+            refresh.style.paddingRight = "1ch"
+            refresh.style.justifyContent = "center"
+            refresh.style.textAlign = "center"
+            refresh.style.fontSize = "2rem"
+            refresh.style.cursor = "pointer"
+            refresh.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.5)"
+            refresh.style.border = "1px solid #ffffff11"
+            refresh.style.filter = "drop-shadow(#0000006b 0px 0px 5px)"
+            refresh.style.color = "#fff"
+            refresh.style.fontFamily = "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important"
+            refresh.style.margin = "0px 5px 0px 5px"
+            refresh.style.opacity = "1"
+            form.style.padding = "10px"
+            form.style.padding = "0"
+            form.style.border = "none"
+            form.style.background = "transparent"
+            await new Promise(resolve => setTimeout(resolve, 100));
+            refresh.style.transition = ".2s"
+        }, 0);       
     });
 
     Refresh.addEventListener("click", (event) => {
