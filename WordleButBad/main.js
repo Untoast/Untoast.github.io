@@ -99,7 +99,7 @@ function TransitionNewGame() {
 }
 
 async function Main() {
-    const response = await fetch('words.txt')
+    const response = await fetch('Words.txt')
     const text = await response.text(); // Get the text content
     const words = text.split('\n'); // Split the text into an array of words
 
@@ -153,13 +153,14 @@ async function Main() {
         //
         let CorrectPosition = []
         let InWord = []
+        let InWordToGuess = []
         word.value = ""
         //Check Rules
         for (let i = 0; i < Word.length; i++) {
             const letterInSubmitted = Word[i];
             const letterInToGuess = wordToGuess[i];
 
-            if (letterInSubmitted === letterInToGuess) {
+            if (letterInSubmitted == letterInToGuess) {
                 CorrectPosition[i] = letterInSubmitted;
             }
 
@@ -170,10 +171,20 @@ async function Main() {
                 }
             }
         }
-
-
-
-
+        for (let i = 0; i < wordToGuess.length; i++) {
+            if (!InWordToGuess[wordToGuess[i]]) { InWordToGuess[wordToGuess[i]]; InWordToGuess[wordToGuess[i]] = 1; continue }
+            InWordToGuess[wordToGuess[i]]++
+        }
+        let amountincorrectpos = []
+        //get amount of each character in submitted prompt (Word) in the correct pos
+        for (let i = 0; i < wordToGuess.length; i++) {
+            const letterInSubmitted = Word[i];
+            const letterInToGuess = wordToGuess[i];
+            if (letterInSubmitted == letterInToGuess) {
+                if (!amountincorrectpos[letterInSubmitted]) { amountincorrectpos[letterInSubmitted] = 0 }
+                amountincorrectpos[letterInSubmitted]++
+            }
+        }
 
 
         let amountofeachchar = []
@@ -195,8 +206,8 @@ async function Main() {
         for (let i = 0; i < Word.length; i++) {
             const letterInSubmitted = Word[i]
             if (CorrectPosition.at(i)) {
+                Hitsforinput[letterInSubmitted]++
                 if (!amtInCorrectPos[letterInSubmitted]) { amtInCorrectPos[letterInSubmitted] = 0 }
-                amtInCorrectPos[letterInSubmitted]++
                 if (!AlteredKeyboardItems[letterInSubmitted] || AlteredKeyboardItems[letterInSubmitted] == "WrongPos") {
                     ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#00ff00", keyboard: "#00ff00" })
                 }
@@ -209,9 +220,15 @@ async function Main() {
             else if (InWord.at(i)) {
                 if (!Hitsforinput[letterInSubmitted]) { Hitsforinput[letterInSubmitted] = 0 }
                 Hitsforinput[letterInSubmitted]++
+
+                //Duplicate letter cases
+                //To guess = grove, submitted = rarer, only first r will be yellow
                 if (Hitsforinput[letterInSubmitted] > amountofeachchar[letterInSubmitted]) { ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#515151"}); continue }
-                //if amount of certain letter in submitted > amount of certain letter in correct pos then remove that yellow letter
-                if (Hitsforinput[letterInSubmitted] >= amountofeachchar[letterInSubmitted]) { ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#515151"}); continue }
+                //To guess = pouch, submitted = mecca, only second c will be green
+
+                if (amountincorrectpos[letterInSubmitted] >= amountofeachchar[letterInSubmitted]) { ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#515151"}); continue }
+
+
                 if (!AlteredKeyboardItems[letterInSubmitted] || AlteredKeyboardItems[letterInSubmitted] == "WrongPos") {
                     ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#ffff00", keyboard: "#ffff00" })
                 }
@@ -265,7 +282,7 @@ async function Main() {
         }
         GuessesListString = "<br />" + CurrentWordEditString
         GuessesList.innerHTML += GuessesListString
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < Word.length; i++) {
             await new Promise(resolve => setTimeout(resolve, 100));
             let currentSpan = document.getElementById(Word + i)
             currentSpan.style.opacity = "1"
@@ -276,23 +293,27 @@ async function Main() {
         }
         //==================Character Color Application==================
         let correct = 0
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < Word.length; i++) {
 
             await new Promise(resolve => setTimeout(resolve, 500));
+            let ScoreType = ""
+            if (ColorsForCurrentWord[i].background == "#00ff00") { ScoreType = "Correct" }
+            else if (ColorsForCurrentWord[i].background == "#ffff00") { ScoreType = "Semi" }
+            else { ScoreType = "Wrong" }
+
             let currentSpan = document.getElementById(Word + i)
 
             currentSpan.style.color = ColorsForCurrentWord[i].color
             currentSpan.style.background = ColorsForCurrentWord[i].background
             currentSpan.style.textShadow = "0px 0px 5px #000"
 
-            document.getElementById(Word[i]).style.filter = "drop-shadow(" + ColorsForCurrentWord[i].keyboard + " 0px 0px 5px)"
+            document.getElementById(Word[i]).style.filter = "drop-shadow(" + ColorsForCurrentWord[i].keyboard + " 0px 0px 3px)"
             document.getElementById(Word[i]).style.background = ColorsForCurrentWord[i].keyboard
             document.getElementById(Word[i]).style.textShadow = "0px 0px 5px #000"
+
+            if (ScoreType === "Correct" || ScoreType === "Semi") {currentSpan.style.filter = "drop-shadow(" + ColorsForCurrentWord[i].keyboard + " 0px 0px 5px)"}
             CurrentWordEditString += currentSpan.outerHTML; // Append the span to the string
-            let ScoreType = ""
-            if (ColorsForCurrentWord[i].background == "#00ff00") { ScoreType = "Correct" }
-            else if (ColorsForCurrentWord[i].background == "#ffff00") { ScoreType = "Semi" }
-            else { ScoreType = "Wrong" }
+            
             if (ScoreType == "Correct") {
                 correct++
                 new Audio("Resources/Audio/CorrectPitches/C"+correct+".wav").play()
@@ -388,6 +409,7 @@ document.addEventListener("keydown", (event) => {
         }
         //Enter key trigger submit
         else if (event.key == "Enter") {
+            preventDefault()
             submit.click()
         }
     }
