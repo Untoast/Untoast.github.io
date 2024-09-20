@@ -424,9 +424,10 @@ let keyboardContainer = document.createElement('div');
         keyboardContainer.style.width = "100%"
         keyboardContainer.style.height = "10vw"
         keyboardContainer.style.margin = "0px"
-        keyboardContainer.style.padding = "0px"
+        keyboardContainer.style.paddingTop = "5px"
         keyboardContainer.style.display = "none"
         keyboardContainer.style.gap = "10px"
+        keyboardContainer.style.border = "1px solid #393939"
 
 //Desktop layout
 let desktopElems = [Stop, submit, Refresh]
