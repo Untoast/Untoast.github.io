@@ -99,7 +99,7 @@ function TransitionNewGame() {
 }
 
 async function Main() {
-    const response = await fetch('Words.txt')
+    const response = await fetch('words.txt')
     const text = await response.text(); // Get the text content
     const words = text.split('\n'); // Split the text into an array of words
 
