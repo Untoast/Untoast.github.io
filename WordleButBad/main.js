@@ -95,7 +95,7 @@ function TransitionNewGame() {
         form.style.background = "transparent"
         await new Promise(resolve => setTimeout(resolve, 100));
         refresh.style.transition = ".2s"
-    }, 1000);       
+    }, 1);       
 }
 
 async function Main() {
@@ -107,6 +107,7 @@ async function Main() {
         return words[Math.floor(Math.random() * words.length)]; // Return a random word
     }
     wordToGuess = await getRandomLine()
+    wordToGuess = wordToGuess.toLowerCase()
     function Noti(Text, color, keep) {
         result.style.filter = "blur(0px)";
         result.innerHTML = Text
@@ -117,7 +118,6 @@ async function Main() {
             result.style.filter = "blur(15px)";
         }, 1000);
     }
-    wordToGuess = wordToGuess.toLowerCase()
     function UpdateAttempts(Amt) {
         Attempts.style.filter = "opacity(1)"
         Attempts.style.filter = "blur(15px)"
@@ -377,9 +377,11 @@ async function Main() {
     Stop.addEventListener("click", (event) => {
         event.preventDefault();
         if (Guessed) { return }
-        Noti("You gave up after " + Guesses + " guesses! The word was \'" + wordToGuess + "\'! Press new to play again.", "#ff0000", true)
         Guessed = true
         TransitionNewGame()
+        setTimeout(() => {
+        Noti("You gave up after " + Guesses + " guesses! The word was \'" + wordToGuess + "\'! Press new to play again.", "#ff0000", true)
+        }, 1000);
     });
 
     Refresh.addEventListener("click", (event) => {
@@ -409,7 +411,6 @@ document.addEventListener("keydown", (event) => {
         }
         //Enter key trigger submit
         else if (event.key == "Enter") {
-            preventDefault()
             submit.click()
         }
     }
@@ -466,7 +467,6 @@ function checkViewport() {
             elem.style.margin = "0px"
             elem.style.width = "100%"
             elem.style.height = "10vw"
-
         })
 
 
