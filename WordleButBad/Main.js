@@ -405,7 +405,11 @@ let keyboardContainer = document.createElement('div');
         keyboardContainer.style.padding = "0px"
         keyboardContainer.style.display = "none"
         keyboardContainer.style.gap = "10px"
-let elems = [Stop, submit, Refresh]
+
+//Desktop layout
+let desktopElems = [Stop, submit, Refresh]
+//Mobile layout
+let mobileElems = [Stop, Refresh, submit]
 //==================Window Size Check==================
 
 function checkViewport() {
@@ -434,7 +438,7 @@ function checkViewport() {
 
         keyboardContainer.style.display = "flex"
         keyboard.appendChild(keyboardContainer)
-        elems.forEach(elem => {
+        mobileElems.forEach(elem => {
             keyboardContainer.appendChild(elem)
             elem.style.margin = "0px"
             elem.style.width = "100%"
@@ -447,7 +451,7 @@ function checkViewport() {
     else if (window.innerWidth >= 750) {
         keyboardContainer.style.display = "none"
         let itter = 0
-        elems.forEach(elem => {
+        desktopElems.forEach(elem => {
             itter++
             if (itter == 1) {
                 document.getElementById("GuessForm").appendChild(elem)
