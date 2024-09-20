@@ -23,6 +23,81 @@ var ColorsForWords = []
 //confetti effect
 // Initialize tsParticles with the bigCircles preset
 
+
+function TransitionNewGame() {
+    wordInput.blur()
+    setTimeout(async () => {
+        let form = document.getElementById("GuessForm")
+        form.style.transition = "1s ease-in-out"
+        for (let i = 0; i < form.length; i++) {
+                form[i].style.transition = "1s"
+                form[i].style.padding = "0"
+                form[i].style.fontSize = "0"
+                form[i].style.filter = "blur(15px)"
+                form[i].style.opacity = "0"
+            
+        }
+        form.style.padding = "0"
+        form.style.border = "none"
+        form.style.background = "transparent"
+        form.style.border = "none"
+        form.style.boxShadow = "none"
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        let refresh = document.getElementById("Refresh") 
+        for (let i = 0; i < form.length; i++) {
+            if (form[i].id != "Refresh") {
+                form[i].style.display = "none"
+            }
+        }
+        if (window.innerWidth < 750) {return}
+         refresh.innerHTML = "New Game" 
+
+        //set all of refresh to default
+        // border-radius: 5ch;
+        // border: none;
+        // background-color: #6868680a;
+        // backdrop-filter: blur(100px);
+        // padding: .3ch;
+        // padding-left: 1ch;
+        // padding-right: 1ch;
+        // justify-content: center;
+        // text-align: center;
+        // font-size: 2rem;
+        // transition: .2s;
+        // cursor: pointer;
+        // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        // border: 1px solid #ffffff11;
+        // filter: drop-shadow(#0000006b 0px 0px 5px);
+        // color: #fff;
+        // font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+        // margin: 0px 5px 0px 5px;   
+        refresh.style.borderRadius = "5ch"
+        refresh.style.border = "none"
+        refresh.style.background = "#6868680a"
+        refresh.style.backdropFilter = "blur(100px)"
+        refresh.style.padding = ".3ch"
+        refresh.style.paddingLeft = "1ch"
+        refresh.style.paddingRight = "1ch"
+        refresh.style.justifyContent = "center"
+        refresh.style.textAlign = "center"
+        refresh.style.fontSize = "2rem"
+        refresh.style.cursor = "pointer"
+        refresh.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.5)"
+        refresh.style.border = "1px solid #ffffff11"
+        refresh.style.filter = "drop-shadow(#0000006b 0px 0px 5px)"
+        refresh.style.color = "#fff"
+        refresh.style.fontFamily = "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important"
+        refresh.style.margin = "0px 5px 0px 5px"
+        refresh.style.opacity = "1"
+        form.style.padding = "10px"
+        form.style.padding = "0"
+        form.style.border = "none"
+        form.style.background = "transparent"
+        await new Promise(resolve => setTimeout(resolve, 100));
+        refresh.style.transition = ".2s"
+    }, 1000);       
+}
+
 async function Main() {
     const response = await fetch('https://raw.githubusercontent.com/Untoast/Words/main/Words.txt'); // Fetch from the URL
     const text = await response.text(); // Get the text content
@@ -42,6 +117,7 @@ async function Main() {
             result.style.filter = "blur(15px)";
         }, 1000);
     }
+    wordToGuess = wordToGuess.toLowerCase()
     function UpdateAttempts(Amt) {
         Attempts.style.filter = "opacity(1)"
         Attempts.style.filter = "blur(15px)"
@@ -133,9 +209,9 @@ async function Main() {
             else if (InWord.at(i)) {
                 if (!Hitsforinput[letterInSubmitted]) { Hitsforinput[letterInSubmitted] = 0 }
                 Hitsforinput[letterInSubmitted]++
-                if (Hitsforinput[letterInSubmitted] > amountofeachchar[letterInSubmitted]) { ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#515151" }); continue }
+                if (Hitsforinput[letterInSubmitted] > amountofeachchar[letterInSubmitted]) { ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#515151"}); continue }
                 //if amount of certain letter in submitted > amount of certain letter in correct pos then remove that yellow letter
-                if (Hitsforinput[letterInSubmitted] > amountofeachchar[letterInSubmitted]) { ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#515151" }); continue }
+                if (Hitsforinput[letterInSubmitted] >= amountofeachchar[letterInSubmitted]) { ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#515151"}); continue }
                 if (!AlteredKeyboardItems[letterInSubmitted] || AlteredKeyboardItems[letterInSubmitted] == "WrongPos") {
                     ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#ffff00", keyboard: "#ffff00" })
                 }
@@ -232,80 +308,10 @@ async function Main() {
         }
         //==================Win Condition==================
         if (Word === wordToGuess) {
-            await new Promise(resolve => setTimeout(resolve, 100));
             wordInput.blur()
-            Noti("You successfully guessed " + wordToGuess + " in " + Guesses + " attempts! Press new to play again.", "#00ff00", true)
             new Audio("Resources/Audio/Win.wav").play()
-            setTimeout(async () => {
-                let form = document.getElementById("GuessForm")
-                form.style.transition = "1s ease-in-out"
-                for (let i = 0; i < form.length; i++) {
-                        form[i].style.transition = "1s"
-                        form[i].style.padding = "0"
-                        form[i].style.fontSize = "0"
-                        form[i].style.filter = "blur(15px)"
-                        form[i].style.opacity = "0"
-                    
-                }
-                form.style.padding = "0"
-                form.style.border = "none"
-                form.style.background = "transparent"
-                form.style.border = "none"
-                form.style.boxShadow = "none"
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                let refresh = document.getElementById("Refresh") 
-                for (let i = 0; i < form.length; i++) {
-                    if (form[i].id != "Refresh") {
-                        form[i].style.display = "none"
-                    }
-                }
-                refresh.innerHTML = "New Game"
-
-                //set all of refresh to default
-                // border-radius: 5ch;
-                // border: none;
-                // background-color: #6868680a;
-                // backdrop-filter: blur(100px);
-                // padding: .3ch;
-                // padding-left: 1ch;
-                // padding-right: 1ch;
-                // justify-content: center;
-                // text-align: center;
-                // font-size: 2rem;
-                // transition: .2s;
-                // cursor: pointer;
-                // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-                // border: 1px solid #ffffff11;
-                // filter: drop-shadow(#0000006b 0px 0px 5px);
-                // color: #fff;
-                // font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
-                // margin: 0px 5px 0px 5px;   
-                refresh.style.borderRadius = "5ch"
-                refresh.style.border = "none"
-                refresh.style.background = "#6868680a"
-                refresh.style.backdropFilter = "blur(100px)"
-                refresh.style.padding = ".3ch"
-                refresh.style.paddingLeft = "1ch"
-                refresh.style.paddingRight = "1ch"
-                refresh.style.justifyContent = "center"
-                refresh.style.textAlign = "center"
-                refresh.style.fontSize = "2rem"
-                refresh.style.cursor = "pointer"
-                refresh.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.5)"
-                refresh.style.border = "1px solid #ffffff11"
-                refresh.style.filter = "drop-shadow(#0000006b 0px 0px 5px)"
-                refresh.style.color = "#fff"
-                refresh.style.fontFamily = "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important"
-                refresh.style.margin = "0px 5px 0px 5px"
-                refresh.style.opacity = "1"
-                form.style.padding = "10px"
-                form.style.padding = "0"
-                form.style.border = "none"
-                form.style.background = "transparent"
-                await new Promise(resolve => setTimeout(resolve, 100));
-                refresh.style.transition = ".2s"
-            }, 1000);       
-
+            TransitionNewGame()
+            Noti("You successfully guessed " + wordToGuess + " in " + Guesses + " attempts! Press new to play again.", "#00ff00", true)
             Guessed = true
             const duration = 5 * 1000,
                 animationEnd = Date.now() + duration,
@@ -352,75 +358,7 @@ async function Main() {
         if (Guessed) { return }
         Noti("You gave up after " + Guesses + " guesses! The word was \'" + wordToGuess + "\'! Press new to play again.", "#ff0000", true)
         Guessed = true
-        setTimeout(async () => {
-            let form = document.getElementById("GuessForm")
-            form.style.transition = "1s ease-in-out"
-            for (let i = 0; i < form.length; i++) {
-                    form[i].style.transition = "1s"
-                    form[i].style.padding = "0"
-                    form[i].style.fontSize = "0"
-                    form[i].style.filter = "blur(15px)"
-                    form[i].style.opacity = "0"
-                
-            }
-            form.style.padding = "0"
-            form.style.border = "none"
-            form.style.background = "transparent"
-            form.style.border = "none"
-            form.style.boxShadow = "none"
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            let refresh = document.getElementById("Refresh") 
-            for (let i = 0; i < form.length; i++) {
-                if (form[i].id != "Refresh") {
-                    form[i].style.display = "none"
-                }
-            }
-            refresh.innerHTML = "New Game"
-
-            //set all of refresh to default
-            // border-radius: 5ch;
-            // border: none;
-            // background-color: #6868680a;
-            // backdrop-filter: blur(100px);
-            // padding: .3ch;
-            // padding-left: 1ch;
-            // padding-right: 1ch;
-            // justify-content: center;
-            // text-align: center;
-            // font-size: 2rem;
-            // transition: .2s;
-            // cursor: pointer;
-            // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-            // border: 1px solid #ffffff11;
-            // filter: drop-shadow(#0000006b 0px 0px 5px);
-            // color: #fff;
-            // font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
-            // margin: 0px 5px 0px 5px;   
-            refresh.style.borderRadius = "5ch"
-            refresh.style.border = "none"
-            refresh.style.background = "#6868680a"
-            refresh.style.backdropFilter = "blur(100px)"
-            refresh.style.padding = ".3ch"
-            refresh.style.paddingLeft = "1ch"
-            refresh.style.paddingRight = "1ch"
-            refresh.style.justifyContent = "center"
-            refresh.style.textAlign = "center"
-            refresh.style.fontSize = "2rem"
-            refresh.style.cursor = "pointer"
-            refresh.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.5)"
-            refresh.style.border = "1px solid #ffffff11"
-            refresh.style.filter = "drop-shadow(#0000006b 0px 0px 5px)"
-            refresh.style.color = "#fff"
-            refresh.style.fontFamily = "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important"
-            refresh.style.margin = "0px 5px 0px 5px"
-            refresh.style.opacity = "1"
-            form.style.padding = "10px"
-            form.style.padding = "0"
-            form.style.border = "none"
-            form.style.background = "transparent"
-            await new Promise(resolve => setTimeout(resolve, 100));
-            refresh.style.transition = ".2s"
-        }, 0);       
+        TransitionNewGame()
     });
 
     Refresh.addEventListener("click", (event) => {
@@ -437,16 +375,6 @@ const wordInput = document.getElementById('word');
 const buttons = [document.getElementById('Stop'), document.getElementById('submit'), document.getElementById('Refresh')];
 const otherElements = document.querySelectorAll('.Input, #Attempts, #result, #keyboard, #Guesses');
 
-wordInput.addEventListener('focus', () => {
-    wordInput.classList.add('center');
-
-    // Fade out all other elements
-    otherElements.forEach(element => {
-        if (element !== wordInput) {
-            element.classList.add('fade-out');
-        }
-    });
-})
 
 //==================Key input events==================
 document.addEventListener("keydown", (event) => {
@@ -465,12 +393,26 @@ document.addEventListener("keydown", (event) => {
     }
 })
 
+
+let keyboardContainer = document.createElement('div');
+        keyboardContainer.id = "KeyboardContainer"
+        keyboardContainer.style.display = "flex"
+        keyboardContainer.style.justifyContent = "center"
+        keyboardContainer.style.alignItems = "center"
+        keyboardContainer.style.width = "100%"
+        keyboardContainer.style.height = "10vw"
+        keyboardContainer.style.margin = "0px"
+        keyboardContainer.style.padding = "0px"
+        keyboardContainer.style.display = "none"
+        keyboardContainer.style.gap = "10px"
+let elems = [Stop, submit, Refresh]
 //==================Window Size Check==================
+
 function checkViewport() {
     const errorText = document.getElementById('errorText');
     const otherElements = document.querySelectorAll('.Input, #Attempts, #result, #keyboard, #Guesses');
 
-    if (window.innerWidth >= 820 && window.innerHeight < 820) {
+    if (window.innerWidth >= 750 && window.innerHeight < 750) {
         // Add the hidden class to all elements except the error message
         otherElements.forEach(element => {
             if (element !== errorText) {
@@ -478,7 +420,8 @@ function checkViewport() {
                 errorText.classList.remove('hidden');
             }
         });
-    } else {
+    }
+    else {
         // Remove the hidden class from all elements and hide the error message
         otherElements.forEach(element => {
             if (element !== errorText) {
@@ -487,8 +430,36 @@ function checkViewport() {
             }
         });
     }
-}
+    if (window.innerWidth < 750) {
 
+        keyboardContainer.style.display = "flex"
+        keyboard.appendChild(keyboardContainer)
+        elems.forEach(elem => {
+            keyboardContainer.appendChild(elem)
+            elem.style.margin = "0px"
+            elem.style.width = "100%"
+            elem.style.height = "10vw"
+
+        })
+
+
+    }
+    else if (window.innerWidth >= 750) {
+        keyboardContainer.style.display = "none"
+        let itter = 0
+        elems.forEach(elem => {
+            itter++
+            if (itter == 1) {
+                document.getElementById("GuessForm").appendChild(elem)
+                document.getElementById("GuessForm").appendChild(wordInput)
+            }
+            else document.getElementById("GuessForm").appendChild(elem)
+            elem.style.margin = "0px 5px 0px 5px"
+            elem.style.width = "auto"
+            elem.style.height = "auto"
+        })
+    }
+}
 
 // Check viewport on load and on resize
 window.addEventListener('load', checkViewport);
