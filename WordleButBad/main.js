@@ -99,7 +99,7 @@ function TransitionNewGame() {
 }
 
 async function Main() {
-    const response = await fetch('https://raw.githubusercontent.com/Untoast/Words/main/Words.txt'); // Fetch from the URL
+    const response = "words.txt"
     const text = await response.text(); // Get the text content
     const words = text.split('\n'); // Split the text into an array of words
 
