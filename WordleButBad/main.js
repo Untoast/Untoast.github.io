@@ -459,7 +459,7 @@ function checkViewport() {
         });
     }
     if (window.innerWidth < 750) {
-
+        wordInput.setAttribute("disabled", true);
         keyboardContainer.style.display = "flex"
         keyboard.appendChild(keyboardContainer)
         mobileElems.forEach(elem => {
@@ -472,6 +472,7 @@ function checkViewport() {
 
     }
     else if (window.innerWidth >= 750) {
+        wordInput.removeAttribute("disabled")
         keyboardContainer.style.display = "none"
         let itter = 0
         desktopElems.forEach(elem => {
