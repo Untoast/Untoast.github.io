@@ -297,6 +297,7 @@ async function Main() {
 
             await new Promise(resolve => setTimeout(resolve, 500));
             let ScoreType = ""
+            console.log(Word; console.log(ColorsForCurrentWord[i].background)
             if (ColorsForCurrentWord[i].background == "#00ff00") { ScoreType = "Correct" }
             else if (ColorsForCurrentWord[i].background == "#ffff00") { ScoreType = "Semi" }
             else { ScoreType = "Wrong" }
