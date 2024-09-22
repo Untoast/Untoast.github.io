@@ -274,9 +274,8 @@ span {
         margin-top: .2ch;
         border-radius: 0ch 0 15ch 15ch;
         transform: translateY(-1ch) translateX(1ch);
-        color: #0000007c !important;
+        color: #ffffff !important;
         padding: 0;
-        mix-blend-mode: difference;
     }
 
     #Guesses {
