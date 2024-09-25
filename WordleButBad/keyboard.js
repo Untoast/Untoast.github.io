@@ -37,9 +37,6 @@ rows.forEach((row, index) => {
 
 const wordInput = document.getElementById('word'); // Corrected name
 const buttons = [document.getElementById('Stop'), document.getElementById('submit'), document.getElementById('Refresh')]; // Corrected name
-const attempts = document.getElementById('Attempts');
-const result = document.getElementById('result');
-const guesses = document.getElementById('Guesses');
 
 wordInput.addEventListener('focus', () => {
     if (window.innerWidth > 820) { // Check if in desktop mode
