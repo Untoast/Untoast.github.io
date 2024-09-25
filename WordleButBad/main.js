@@ -297,7 +297,6 @@ async function Main() {
 
             await new Promise(resolve => setTimeout(resolve, 500));
             let ScoreType = ""
-            console.log(ColorsForCurrentWord[i].background)
             if (ColorsForCurrentWord[i].background == "#00ff00") { ScoreType = "Correct" }
             else if (ColorsForCurrentWord[i].background == "#ffff00") { ScoreType = "Semi" }
             else { ScoreType = "Wrong" }
@@ -311,8 +310,6 @@ async function Main() {
             document.getElementById(Word[i]).style.filter = "drop-shadow(" + ColorsForCurrentWord[i].keyboard + " 0px 0px 3px)"
             document.getElementById(Word[i]).style.background = ColorsForCurrentWord[i].keyboard
             document.getElementById(Word[i]).style.textShadow = "0px 0px 5px #000"
-
-            if (ScoreType === "Correct" || ScoreType === "Semi") {currentSpan.style.filter = "drop-shadow(" + ColorsForCurrentWord[i].keyboard + " 0px 0px 5px)"}
             CurrentWordEditString += currentSpan.outerHTML; // Append the span to the string
             
             if (ScoreType == "Correct") {
