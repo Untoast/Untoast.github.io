@@ -20,10 +20,6 @@ var Waiting = false
 
 var ColorsForWords = []
 
-//confetti effect
-// Initialize tsParticles with the bigCircles preset
-
-
 function TransitionNewGame() {
     wordInput.blur()
     setTimeout(async () => {
