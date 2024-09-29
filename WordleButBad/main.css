@@ -97,6 +97,13 @@ body {
 .Input:focus {
     outline: none; 
 }
+#Gibson {
+    position: absolute;
+    display: flex;
+    top: 8px;
+    transform-origin: 0px 0px;
+    font-size: 1vw;
+}
 
 #word {
     z-index: 100000;
@@ -117,13 +124,16 @@ body {
 
 #Attempts {
     position: fixed;
-    top: 0.15ch;
-    right: 0.323ch;
+    top: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 3rem;
-    background-color: #f0f0f000;
+    border-radius: 0 0 0 1rem;
+    border-left: 1px solid #ffffff11;
+    border-bottom: 1px solid #ffffff11;
+    background-color: #272727;
     width: 80px;
     height: 80px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -271,10 +281,13 @@ span {
 
     #Attempts {
         top: auto;
+        right: 0.323ch;
         margin-top: .2ch;
         border-radius: 0ch 0 15ch 15ch;
         transform: translateY(-1ch) translateX(1ch);
         color: #ffffff !important;
+        background: #ffffff00 !important;
+        border: none !important;
         padding: 0;
     }
 
