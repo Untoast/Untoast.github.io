@@ -486,12 +486,17 @@ function checkViewport() {
             elem.style.width = "100%"
             elem.style.height = "10vw"
         })
-
+        if (getComputedStyle(Gibson).getPropertyValue("display") !== "none") {
+            Gibson.style.display = "none"
+        }
 
     }
     else if (window.innerWidth >= 750) {
         wordInput.removeAttribute("disabled")
         keyboardContainer.style.display = "none"
+        if (getComputedStyle(Gibson).getPropertyValue("display") !== "flex") {
+            Gibson.style.display = "flex"
+        }
         let itter = 0
         desktopElems.forEach(elem => {
             itter++
