@@ -6,6 +6,7 @@ let result = document.getElementById("result")
 let GuessesList = document.getElementById("Guesses")
 let Stop = document.getElementById("Stop")
 let Attempts = document.getElementById("Attempts")
+let Gibson = document.getElementById("Gibson")
 
 var SubmittedWords = []
 var CurrentIndex = 0
@@ -20,6 +21,8 @@ var Waiting = false
 
 var ColorsForWords = []
 
+var Found = []
+
 function TransitionNewGame() {
     wordInput.blur()
     setTimeout(async () => {
@@ -33,11 +36,15 @@ function TransitionNewGame() {
                 form[i].style.opacity = "0"
             
         }
+        Gibson.style.transition = "1s"
         form.style.padding = "0"
         form.style.border = "none"
         form.style.background = "transparent"
         form.style.border = "none"
         form.style.boxShadow = "none"
+        Gibson.style.transform = "Scale(0)"
+        Gibson.style.filter = "Blur(15px)"
+        Gibson.style.opacity = "0"
         await new Promise(resolve => setTimeout(resolve, 1000));
         let refresh = document.getElementById("Refresh") 
         for (let i = 0; i < form.length; i++) {
@@ -139,7 +146,7 @@ async function Main() {
             return
         }
         if (!words.includes(Word)) {
-            Noti("Word not in list!", "#ff0000")
+            Noti("Word is not in list!", "#ff0000")
             return
         }
         Waiting = true
@@ -198,9 +205,12 @@ async function Main() {
         let ColorsForCurrentWord = []
         //if amount of certain letter in submitted > amount of certain letter in correct pos then remove that yellow letter
         let amtInCorrectPos = []
-
+        console.log(Found)
         for (let i = 0; i < Word.length; i++) {
             const letterInSubmitted = Word[i]
+            console.log(Word)
+            console.log(letterInSubmitted)
+            console.log(InWord.at(i))
             if (CorrectPosition.at(i)) {
                 Hitsforinput[letterInSubmitted]++
                 if (!amtInCorrectPos[letterInSubmitted]) { amtInCorrectPos[letterInSubmitted] = 0 }
@@ -211,10 +221,14 @@ async function Main() {
                     ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#00ff00" })
                 }
                 AlteredKeyboardItems[letterInSubmitted] = "CorrectPos"
+                Found[letterInSubmitted] = letterInSubmitted 
             }
             //Wrong Pos
             else if (InWord.at(i)) {
+                // console.log(letterInSubmitted)
                 if (!Hitsforinput[letterInSubmitted]) { Hitsforinput[letterInSubmitted] = 0 }
+                // console.log(letterInSubmitted)
+                // console.log(Found[letterInSubmitted])
                 Hitsforinput[letterInSubmitted]++
 
                 //Duplicate letter cases
@@ -224,8 +238,7 @@ async function Main() {
 
                 if (amountincorrectpos[letterInSubmitted] >= amountofeachchar[letterInSubmitted]) { ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#515151"}); continue }
 
-
-                if (!AlteredKeyboardItems[letterInSubmitted] || AlteredKeyboardItems[letterInSubmitted] == "WrongPos") {
+                if (!AlteredKeyboardItems[letterInSubmitted] || AlteredKeyboardItems[letterInSubmitted] == "WrongPos" && !Found[letterInSubmitted]) {
                     ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#ffff00", keyboard: "#ffff00" })
                 }
                 else {
@@ -234,7 +247,8 @@ async function Main() {
                 AlteredKeyboardItems[letterInSubmitted] = "WrongPos"
             }
             else {
-                if (!AlteredKeyboardItems[letterInSubmitted]) {
+                console.log(letterInSubmitted)
+                if (!AlteredKeyboardItems[letterInSubmitted] && !Found[letterInSubmitted]) {
                     ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#515151", keyboard: "#1e1e1e" })
                 }
                 else {
@@ -293,6 +307,7 @@ async function Main() {
 
             await new Promise(resolve => setTimeout(resolve, 500));
             let ScoreType = ""
+            console.log(ColorsForCurrentWord)
             if (ColorsForCurrentWord[i].background == "#00ff00") { ScoreType = "Correct" }
             else if (ColorsForCurrentWord[i].background == "#ffff00") { ScoreType = "Semi" }
             else { ScoreType = "Wrong" }
@@ -374,7 +389,16 @@ async function Main() {
         Guessed = true
         TransitionNewGame()
         setTimeout(() => {
-        Noti("You gave up after " + Guesses + " guesses! The word was \'" + wordToGuess + "\'! Press new to play again.", "#ff0000", true)
+        Noti("You gave up after " + Guesses + " guesses, the word was \'" + wordToGuess + "\'! Press new to play again.", "#ff0000", true)
+        }, 1000);
+    });
+    Gibson.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (Guessed) { return }
+        Guessed = true
+        TransitionNewGame()
+        setTimeout(() => {
+        Noti("Then try harder! you gave up after " + Guesses + " guesses, the word was \'" + wordToGuess + "\'!", "#ff0000", true)
         }, 1000);
     });
 
