@@ -288,7 +288,7 @@ async function Main() {
                     ColorsForCurrentWord.splice(i, 0, { color: "#ffffff", background: "#ffff00" })
                 }
                 console.log(GetPosInWord(wordToGuess, letterInSubmitted))
-                StatsColorArray[GetPosInWord(wordToGuess, letterInSubmitted) + 1] = "WrongPosBackground"
+                if (StatsColorArray[GetPosInWord(wordToGuess, letterInSubmitted) + 1] !== "CorrectBackground") { StatsColorArray[GetPosInWord(wordToGuess, letterInSubmitted) + 1] = "WrongPosBackground"}
                 AlteredKeyboardItems[letterInSubmitted] = "WrongPos"
             }
             else {
