@@ -153,7 +153,7 @@ async function Main() {
     }
     wordToGuess = await getRandomLine()
     wordToGuess = wordToGuess.toLowerCase()
-
+    console.log(wordToGuess)
     function Noti(Text, color, keep) {
         result.style.filter = "blur(0px)";
         result.innerHTML = Text
@@ -449,7 +449,7 @@ async function Main() {
         Guessed = true
         TransitionNewGame()
         setTimeout(() => {
-        Noti("Then try harder! you gave up after " + Guesses + " guesses, the word was \'" + wordToGuess + "\'!", "#ff0000", true)
+        Noti("Then gobble harder! you gave up after " + Guesses + " guesses, the word was \'" + wordToGuess + "\'!", "#ff0000", true)
         }, 1000);
     });
 
@@ -505,11 +505,15 @@ let desktopElems = [Stop, submit, Refresh]
 let mobileElems = [Stop, Refresh, submit]
 //==================Window Size Check==================
 
+const sessioninfo = document.getElementById("sessionInfo")
+const GuessForm = document.getElementById("GuessForm")
+
 function checkViewport() {
+   
     const errorText = document.getElementById('errorText');
     const otherElements = document.querySelectorAll('.Input, #Attempts, #result, #keyboard, #Guesses, #overlay, #sessionInfo');
-
-    if (window.innerWidth >= 750 && window.innerHeight < 750) {
+    console.log(GuessForm.clientHeight)
+    if (window.innerWidth >= 700 && window.innerHeight < 700) {
         // Add the hidden class to all elements except the error message
         otherElements.forEach(element => {
             if (element !== errorText) {
@@ -527,7 +531,7 @@ function checkViewport() {
             }
         });
     }
-    if (window.innerWidth < 750) {
+    if (window.innerWidth < 945) {
         wordInput.setAttribute("disabled", true);
         keyboardContainer.style.display = "flex"
         keyboard.appendChild(keyboardContainer)
@@ -542,7 +546,7 @@ function checkViewport() {
         }
 
     }
-    else if (window.innerWidth >= 750) {
+    else if (window.innerWidth >= 945) {
         wordInput.removeAttribute("disabled")
         keyboardContainer.style.display = "none"
         if (getComputedStyle(Gibson).getPropertyValue("display") !== "flex") {

@@ -94,7 +94,6 @@
 }
 
 #StatsGuesses {
-    overflow: scroll;
     max-height: 60svh;
 }
 

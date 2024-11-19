@@ -1,0 +1,570 @@
+
+body {
+    background-color: #2c2c2c;
+    font-size: 1rem; 
+    overflow: hidden;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #fff;
+}
+
+#bg {
+    background-image: url("Resources/Images/bg.png");
+    position: absolute;
+
+    min-height: 100vh;
+    min-width: 100vw;
+    top: 0;
+    left: 0;
+}
+
+.fira-mono-regular {
+    font-family: "Fira Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+  
+  .fira-mono-medium {
+    font-family: "Fira Mono", monospace;
+    font-weight: 500;
+    font-style: normal;
+}
+  
+  .fira-mono-bold {
+    font-family: "Fira Mono", monospace;
+    font-weight: 700;
+    font-style: normal;
+}
+  
+
+#result {
+    filter: blur(15px);
+    padding-top: 1ch;
+    color: transparent;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: .5s;
+    text-align: center;
+    font-size: 2rem;
+    transition: .2s;
+}
+
+#Guesses {
+    color: #000;
+    display: block;
+    flex-direction: column;
+    gap: 2ch;
+    /*font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;*/
+    font-family: 'Fira Mono', monospace;
+    line-height: 1.5;
+    margin-top: 0.3rem;
+    justify-content: center;
+    text-align: center;
+    transition: .2s;
+    max-height: calc(72vh - 15vh - 20px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+#GuessForm {
+    display: table;
+    margin: 0 auto;
+    position: relative;
+    margin: auto;
+    justify-content: center;
+    gap: 10px;
+    transition: .2s;
+    align-items: center;
+    padding: .5rem;
+    border-radius: 15ch;
+    backdrop-filter: blur(100px);
+    border: 1px solid #ffffff11;
+    box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.5);
+
+    
+}
+
+
+.Input {
+    -webkit-appearance: none; 
+    appearance: none;
+    border-radius: 5ch;
+    border: none;
+    background-color: #6868680a;
+    backdrop-filter: blur(100px);
+    padding: .5rem; 
+    padding-left: .5ch;
+    padding-right: .5ch;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.5rem; 
+    transition: .2s;
+    cursor: pointer;
+    border: 1px solid #ffffff11;
+    color: #fff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+    margin: 0px 5px 0px 5px;
+    text-align: center;
+}
+
+.Input::placeholder {
+    color: #ffffff4d;
+}
+
+.Input:hover {
+    transform: scaleX(1.03);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.534);
+}
+
+.Input:active {
+    transform: scale(0.98)  translateY(3px);
+    box-shadow: 5px 5px 20px rgb(0, 0, 0);
+}
+
+.Input.active {
+    transform: translateY(3px);
+    box-shadow: 5px 5px 20px rgb(0, 0, 0);
+    opacity: 1;
+}
+
+.Input:focus {
+    outline: none; 
+}
+#Gibson {
+    position: absolute;
+    display: flex;
+    top: 8px;
+    transform-origin: 0px 0px;
+    font-size: 1vw;
+}
+
+#word {
+    z-index: 100000; 
+}
+
+#word:hover {
+    transform: translateY(0px) scaleX(1);
+}
+
+#word:focus {
+    background-color: #6868680a;
+    transform: translateY(0px) scaleX(1);
+    box-shadow: 5x 5px 10px rgb(0, 0, 0, 0.334);
+    background: #353535;
+}
+
+
+
+#sessionInfo {
+    position: fixed;
+    top: .5rem;
+    right: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    border-radius: 2ch;
+    border: 1px solid #ffffff11;
+    border-bottom: 1px solid #ffffff11;
+    background-color: #27272700;
+    width: auto;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: 0.3s ease-in-out;
+    z-index: 1000;
+    color: #fff;
+    gap: 10px;
+    padding: .5rem;
+    box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(100px);
+}
+
+
+#Attempts {
+    position: absolute;
+    right: 1rem;
+    text-shadow: 0px 0px 7px #2c2c2c;
+}
+#Stats {
+    margin: 0;
+}
+
+span {
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    transition: .2s;
+}
+
+.transparent {
+    opacity: 0.5;
+    z-index: -1;
+    gap: 0 5px 0 5px;
+}
+
+#Version {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    font-size: 1rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 0.2rem 0.2rem 0rem 0.2rem;
+    border-radius: 0rem 0.5rem 0rem 0rem;
+}
+
+/*keyboard*/
+#keyboard {
+    display: flex;  
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 20px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 90%;
+    backdrop-filter: blur(100px);
+    border: 1px solid #ffffff11;
+    box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.5);
+    border-radius: 3ch;
+    padding: 0.5rem 0.3rem 0.3rem 0.3rem;
+    box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.5);
+}
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.key {
+    width: 10vw; 
+    height: 10vw; 
+    max-width: 4rem; 
+    max-height: 4rem; 
+    background-color: #ffffff11;
+    border: 1px solid #ffffff11;
+    border-radius: 0.8ch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 250%; 
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    cursor: pointer;
+    user-select: none;
+    margin: 0 2px;
+    transition: .2s;
+    color: #fff;
+    backdrop-filter: blur(100px);
+}
+
+.key:hover {
+    box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px) scale(1.02);
+}
+
+.key:active {
+    box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.3);
+    transform: translateY(3px) scale(0.98);
+}
+
+@media (max-width: 370px) {
+    span {
+        padding: .2rem;
+    }
+}
+@media (max-width: 320px) {
+    span {
+        padding: .001rem;
+    }
+}
+@media (max-width: 290px) {
+    span {
+        padding: 0 !important;
+        margin: 0px !important;
+    }
+}
+
+
+@media (max-width: 945px) {
+    #GuessForm {
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 15vh;
+        gap: 1rem;
+        position: relative;
+        margin-bottom: 0;
+        backdrop-filter: blur(0px);
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        max-height: 30vh;
+        overflow-y: auto;
+        overflow-x:hidden;
+        max-height: 30vh; 
+        z-index: 10;
+        padding-bottom: 0px !important;
+        height: 10%;
+        background: transparent;
+        border: 0px solid;
+        box-shadow: none;
+    }
+
+    #keyboard {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+    }
+
+    #result {
+        padding-top: 0;
+    }
+
+    #sessionInfo {
+        top: auto;
+        border-radius: 0ch 0 15ch 15ch;
+        color: #ffffff !important;
+        background: #ffffff00 !important;
+        backdrop-filter: blur(0);
+        border: none !important;
+        gap: 0;
+        justify-content: space-between;
+        position: relative;
+        max-width: 0 10px 0 10px;
+        box-shadow: none;
+    }
+
+    #Stats {
+        width: auto;
+        padding: 10px;
+    }
+
+    #Guesses {
+        max-height: calc(50vh - 20px);
+        overflow-y: scroll;
+    }
+
+    #Attempts {
+        margin-right: 10px;
+    }
+
+    .Input {
+        width: 90%;
+        max-width: 90vw;
+        font-size: 1.5rem;
+         margin: 0px;
+         color: #fff;
+         border-radius: 5ch;
+         border: none;
+         background-color: #6868680a;
+         backdrop-filter: blur(100px);
+         padding: .5rem; 
+         padding-left: 1ch;
+         padding-right: 1ch;
+         justify-content: center;
+         text-align: center;
+         font-size: 1.5rem; 
+         transition: .2s;
+         cursor: pointer;
+         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+         border: 1px solid #ffffff11;
+         filter: drop-shadow(#403c3c00 0px 0px 0px);
+         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+         margin: 0px 5px 0px 5px;
+         text-align: center;
+         width: 90%; 
+         font-size: 1.5rem; 
+         height: 3rem; 
+         display: flex; 
+         align-items: center;
+         padding-left: 0ch;
+         padding-right: 0ch;
+    }
+    .Input:focus {
+        transform: scale(1.03);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    }
+    .Input:hover {
+        transform: scale(1);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    }
+    .Input:active {
+        transform: scale(0.95);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    }
+    .key {
+        filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) !important;
+    }
+    .key:hover {
+        transform: translateY(0px) scale(1);
+        box-shadow: 0px 9px 0px rgba(0, 0, 0, 0);
+    }
+    .key:active {
+        box-shadow: 10px 3px 10px rgba(0, 0, 0, 0.3);
+        transform: translateY(2px) scale(0.9);
+    }
+    #word {
+        width: 100%;
+        background: #2e2e2e;
+        box-shadow: none;
+    }
+    #word:focus {
+        background-color: #6868680a;
+        transform: translateY(0px) scaleX(1.03);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0);
+    }
+    #submit {
+        color: #ffffff !important;
+        text-shadow: 0 0 10px rgb(0, 0, 0);
+        background: rgb(99, 255, 133) !important;
+        border: 1px solid rgb(74, 204, 102) !important;
+    }
+    #Refresh {
+        background: #425fb7 !important;
+        border: 1px solid #80a3ff;
+        text-shadow: 0 0 10px rgb(0, 0, 0);
+        color: #ffffff !important;
+    }
+}
+
+.LetterSpan {
+    margin: 0.2rem;
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    line-height: 3rem;
+    font-size: calc(3.5rem + 0.5vw);
+    transition: 0.2s;
+    border-radius: 5px;
+    color: #fff;
+    font-family: 'Fira Mono', monospace;
+    text-shadow: rgb(0, 0, 0) 0px 0px 5px;
+}
+.CorrectBackground {
+    background: #00ff00;
+    text-shadow: "0px 0px 5px #000";
+}
+.WrongPosBackground {
+    background: #ffff00;
+    text-shadow: "0px 0px 5px #000";
+}
+.IncorrectBackground {
+    background: #515151;
+    text-shadow: "0px 0px 5px #000";
+}
+
+.Gone {
+    filter: blur(15px);
+    opacity: 0;
+    transform: scale(0);
+    width: 0px;
+    height: 0px;
+    padding: 0;
+    font-size: 0;
+}
+
+#Stop {
+    color: #ff0000;
+    background-color: rgba(100, 0, 0, 0.753);
+    border: 1px solid #ff00003a;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
+}
+
+#Word {
+    color: #fff !important;
+    background-color: #6868680a !important;
+}
+
+
+#result {
+    text-overflow: ellipsis;
+    max-width: 100%;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    transition: 0.3s; 
+}
+
+#errorText {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    backdrop-filter: blur(100px);
+}
+
+
+#errorMessage {
+    font-size: 2rem; 
+    margin-bottom: 1rem; 
+    filter: drop-shadow(0 0 100px #000000);
+    background-color: #ffffff1c;
+    backdrop-filter: blur(100px);
+    border-radius: 1ch;
+    padding: 1ch;
+    border: 1px solid #ffffff11;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #fff;
+}
+
+.text {
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 100px #000000);
+    background-color: #ffffff1c;
+    backdrop-filter: blur(100px);
+    border-radius: 1ch;
+    padding: 1ch;
+    border: 1px solid #ffffff11;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #fff;
+    white-space: nowrap;
+    font-size: clamp(10px, 5vw, 24px);
+    overflow: hidden;
+    width: 104%;
+    justify-self: center;
+    text-align: center;
+    min-width: fit-content;
+}
+
+.errorImage {
+    width: 150px;
+    height: auto;
+    aspect-ratio: 1/1;  
+    filter: invert(100%) sepia(60%) saturate(2%) hue-rotate(250deg) brightness(112%) contrast(100%) drop-shadow(0 0 20px rgb(0, 0, 0));
+    font-size: 2rem; 
+    margin-bottom: 1rem; 
+    filter: drop-shadow(0 0 100px #000000);
+    background-color: #ffffff1c;
+    backdrop-filter: blur(100px);
+    border-radius: 1ch;
+    padding: 1ch;
+    border: 1px solid #ffffff11;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 1rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+@media (max-width: 750px) {
+    .key {
+        width: 8vw;
+        height: 8vw; 
+        font-size: 1.5rem; 
+    }
+}
+
+

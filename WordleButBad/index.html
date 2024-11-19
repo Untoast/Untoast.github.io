@@ -8,21 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Untoast's Wordle Thingy</title>
     <link rel="icon" type="image/x-icon" href="https://untoast.github.io/wordle.png">
+    <div id="bg"></div>
     <form id="GuessForm">
         <button id="Stop" class="Input" type="button">Give Up</button>
         <input id="word" class="Input" type="text" placeholder="Word" maxlength="5">
         <button id="submit" class="Input" type="submit">Submit</button>
         <button id="Refresh" class="Input" type="button">New</button>
     </form>
-    <button id="Gibson" class="Input">Gibson, can't figure out the word? press me.</button>
+    <button id="Gibson" class="Input">TURKEY!</button>
     <div id = "sessionInfo">
         <button id="Stats" class="Input">Session Info</button>
+        <div style="font-size: 2rem; visibility: hidden;  padding-right: 1rem;">0</div>
         <div id="Attempts">0</div>
     </div>
     <div id="result">.</div>
     <div id="Guesses"></div>
-    <label id="Version">Version 1.5</label>
+    <label id="Version">Version 1.55 (Thanksgiving)</label>
     <div id="keyboard"></div>
+    <div id="SQUARE"></div>
     <script src="keyboard.js"></script>
 <body>
     
@@ -78,7 +81,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="main.js"></script>
     <script src="popup.js"></script>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="Thanksgiving.css">
     
     
 </body>
