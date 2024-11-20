@@ -7,9 +7,17 @@ body {
     color: #fff;
 }
 
-
-#bg {
-    display: none;
+#bg /*Used for holiday images*/ {
+    background-image: url("Resources/Images/bg.png");
+    position: absolute;
+    transition: .5s;
+    min-height: 100vh;
+    min-width: 100vw;
+    top: 0;
+    left: 0; 
+}
+.bghidden {
+    opacity: 0;
 }
 
 .fira-mono-regular {
@@ -30,6 +38,45 @@ body {
     font-style: normal;
 }
   
+
+#settings {
+    position: absolute;
+    display: flex;
+    bottom: 20px;
+    right: 0.5rem;
+    border-radius: 1rem;
+    justify-content: center;
+    z-index: 2;
+}
+.setting {
+    text-align: center;
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    backdrop-filter: blur(10px) !important;
+    align-items: center;
+    margin: 0 !important; 
+    border: none !important;
+    font-size: 1.8vw !important;
+    border: 1px solid #ffffff11 !important;
+    z-index: 0 !important;
+    user-select: none;
+    box-shadow: none !important;
+
+}
+.settingactive {
+    background-color: rgb(255, 255, 255) !important;
+    color: #000 !important;
+}
+
+.setting:hover {
+    z-index: 1 !important;
+}
+.setting:active {
+    transform: translate(0) !important;
+}
 
 #result {
     filter: blur(15px);
@@ -201,9 +248,11 @@ span {
     color: #fff;
     font-size: 1rem;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10ps x rgba(0, 0, 0, 0.5);
     padding: 0.2rem 0.2rem 0rem 0.2rem;
     border-radius: 0rem 0.5rem 0rem 0rem;
+    backdrop-filter: blur(20px);
+    font-size: 1.1vw;
 }
 
 /*keyboard*/
@@ -217,13 +266,14 @@ span {
     left: 50%;
     transform: translateX(-50%);
     width: auto;
-    max-width: 90%;
+    max-width: 100%;
+    border-radius: 3ch;
     backdrop-filter: blur(100px);
     border: 1px solid #ffffff11;
     box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.5);
-    border-radius: 3ch;
     padding: 0.5rem 0.3rem 0.3rem 0.3rem;
     box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.5);
+
 }
 .keyboard-row {
     display: flex;
@@ -281,6 +331,13 @@ span {
 
 
 @media (max-width: 945px) {
+    #settings{
+        bottom: 101%;
+        right: 0;
+        background: #00000083;
+
+    }
+
     #GuessForm {
         margin-left: 0;
         display: flex;
@@ -482,6 +539,7 @@ span {
     font-size: 1.2rem;
     margin-top: 0.5rem;
     transition: 0.3s; 
+    text-shadow: #000 0px 0px 10px;
 }
 
 #errorText {
@@ -561,5 +619,3 @@ span {
         font-size: 1.5rem; 
     }
 }
-
-

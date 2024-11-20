@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Untoast's Wordle Thingy</title>
     <link rel="icon" type="image/x-icon" href="https://untoast.github.io/wordle.png">
-    <div id="bg"></div>
+    <div id="bg" class=""></div>
     <form id="GuessForm">
         <button id="Stop" class="Input" type="button">Give Up</button>
         <input id="word" class="Input" type="text" placeholder="Word" maxlength="5">
@@ -17,17 +17,25 @@
     </form>
     <button id="Gibson" class="Input">TURKEY!</button>
     <div id = "sessionInfo">
-        <button id="Stats" class="Input">Session Info</button>
+        <button id="Stats" class="Input"    QQ  Q   Q   W   qwwsq>Session Info</button>
         <div style="font-size: 2rem; visibility: hidden;  padding-right: 1rem;">0</div>
         <div id="Attempts">0</div>
     </div>
     <div id="result">.</div>
     <div id="Guesses"></div>
     <label id="Version">Version 1.55 (Thanksgiving)</label>
+    <div id ="settings">
+        <div id = "bgb"   class="setting Input" style="border-radius: 1rem 0 0 1rem;">
+            <label>Old Bg</label>
+        </div>
+        <div id = "audiob" class="setting Input" style="border-radius: 0 1rem 1rem 0;">
+            <label>Old Audio</label>
+        </div>
+    </div>
     <div id="keyboard"></div>
     <div id="SQUARE"></div>
     <script src="keyboard.js"></script>
-<body>
+<body id ="body">
     
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <div id="result" style="margin-right: 20px;">.</div>
@@ -81,7 +89,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="main.js"></script>
     <script src="popup.js"></script>
-    <link rel="stylesheet" href="Thanksgiving.css">
+    <link rel="stylesheet" href="main.css">
     
     
 </body>

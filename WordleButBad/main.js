@@ -7,8 +7,10 @@ let GuessesList = document.getElementById("Guesses")
 let Stop = document.getElementById("Stop")
 let Attempts = document.getElementById("Attempts")
 let Gibson = document.getElementById("Gibson")
+const settings = document.getElementById("settings")
 
-var SubmittedWords = []
+
+let SubmittedWords = []
 var CurrentIndex = 0
 
 var Guesses = 0
@@ -142,6 +144,16 @@ function TransitionNewGame() {
         refresh.style.transition = ".2s"
     }, 1);       
 }
+function Noti(Text, color, keep) {
+    result.style.filter = "blur(0px)";
+    result.innerHTML = Text
+    result.style.color = color;
+    if (keep == true) { return }
+    setTimeout(() => {
+        result.style.color = "transparent";
+        result.style.filter = "blur(15px)";
+    }, 1000);
+}
 
 async function Main() {
     const response = await fetch('words.txt')
@@ -154,16 +166,7 @@ async function Main() {
     wordToGuess = await getRandomLine()
     wordToGuess = wordToGuess.toLowerCase()
     console.log(wordToGuess)
-    function Noti(Text, color, keep) {
-        result.style.filter = "blur(0px)";
-        result.innerHTML = Text
-        result.style.color = color;
-        if (keep == true) { return }
-        setTimeout(() => {
-            result.style.color = "transparent";
-            result.style.filter = "blur(15px)";
-        }, 1000);
-    }
+    
     function UpdateAttempts(Amt) {
         Attempts.style.filter = "opacity(0)"
         setTimeout(() => {
@@ -349,7 +352,7 @@ async function Main() {
             currentSpan.style.transform = "scale(1)"
             currentSpan.style.filter = "blur(0px)"
             GuessesList.scrollTo(0, GuessesList.scrollHeight)
-            new Audio("Resources/Audio/LetterPop.wav").play()
+            new Audio("Resources/Audio" + DefaultAudios + "/LetterPop.wav").play()
         }
         //==================Character Color Application==================
         let correct = 0
@@ -374,15 +377,15 @@ async function Main() {
             
             if (ScoreType == "Correct") {
                 correct++
-                new Audio("Resources/Audio/CorrectPitches/C"+correct+".wav").play()
+                new Audio("Resources/Audio" + DefaultAudios + "/CorrectPitches/C"+correct+".wav").play()
             }
             else if (ScoreType == "Semi") {
                 correct = 0
-                new Audio("Resources/Audio/Semi.wav").play()
+                new Audio("Resources/Audio" + DefaultAudios + "/Semi.wav").play()
             }
             else {
                 correct = 0
-                new Audio("Resources/Audio/Default.wav").play()
+                new Audio("Resources/Audio" + DefaultAudios + "/Default.wav").play()
             }
         }
         //==================Win Condition==================
@@ -390,7 +393,7 @@ async function Main() {
             GeussData = {Word: wordToGuess.toUpperCase(), GuessAmt: Guesses, GaveUp: false, Colors: "Correct"}
             saveScore(GeussData.Word, GeussData.GuessAmt, GeussData.GaveUp, GeussData.Colors)
             wordInput.blur()
-            new Audio("Resources/Audio/Win.wav").play()
+            new Audio("Resources/Audio" + DefaultAudios + "/Win.wav").play()
             TransitionNewGame()
             Noti("You successfully guessed " + wordToGuess + " in " + Guesses + " attempts! Press new to play again.", "#00ff00", true)
             Guessed = true
@@ -507,6 +510,7 @@ let mobileElems = [Stop, Refresh, submit]
 
 const sessioninfo = document.getElementById("sessionInfo")
 const GuessForm = document.getElementById("GuessForm")
+const Keyboard = document.getElementById("keyboard")
 
 function checkViewport() {
    
@@ -544,9 +548,11 @@ function checkViewport() {
         if (getComputedStyle(Gibson).getPropertyValue("display") !== "none") {
             Gibson.style.display = "none"
         }
+        keyboard.appendChild(settings)
 
     }
     else if (window.innerWidth >= 945) {
+        document.getElementById('body').appendChild(settings)
         wordInput.removeAttribute("disabled")
         keyboardContainer.style.display = "none"
         if (getComputedStyle(Gibson).getPropertyValue("display") !== "flex") {
@@ -566,6 +572,68 @@ function checkViewport() {
         })
     }
 }
+// Settings
+
+//Setting elems
+const bgsetting = document.getElementById("bgb")
+const audiosetting = document.getElementById("audiob")
+const bg = document.getElementById("bg")
+
+//Settings Vars
+let oldAudio = true
+let oldBG = true
+let DefaultAudios = ""
+
+//   Save/Load
+function saveSetting(setting, value) {
+    let current = JSON.parse(sessionStorage.getItem('settings')) || {}
+    current[setting] = {value}
+    sessionStorage.setItem('settings', JSON.stringify(current))
+}
+
+function getSettings() {
+    return JSON.parse(sessionStorage.getItem('settings')) || {};
+}
+
+const defbg = getSettings()["bg"]["value"]
+const defaudio = getSettings()["audio"]["value"]
+
+ToggleBG(defbg)
+ToggleAudio(defaudio)
+
+//Bg toggle
+function ToggleBG(value) {
+    oldBG = !oldBG
+    if (value == true || value == false) oldBG = value
+    saveSetting("bg", oldBG)
+    if (oldBG) {
+        bg.classList.remove("bghidden")
+        bgsetting.classList.remove("settingactive")
+    }
+    else {
+        bg.classList.add("bghidden")
+        bgsetting.classList.add("settingactive")
+    }
+}
+
+//Audio toggle
+function ToggleAudio(value) {
+    oldAudio = !oldAudio
+    if (value == true || value == false) oldAudio = value
+    saveSetting("audio", oldAudio)
+    if (oldAudio) {
+        DefaultAudios = ""
+        audiosetting.classList.remove("settingactive")
+    }
+    else {
+        DefaultAudios = "/DefaultAudios"
+        audiosetting.classList.add("settingactive")
+    }
+}
+
+bgsetting.addEventListener("click", ToggleBG)
+audiosetting.addEventListener("click", ToggleAudio)
+/////
 
 // Check viewport on load and on resize
 window.addEventListener('load', checkViewport);
