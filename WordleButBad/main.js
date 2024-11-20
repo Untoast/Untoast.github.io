@@ -595,11 +595,16 @@ function getSettings() {
     return JSON.parse(sessionStorage.getItem('settings')) || {};
 }
 
-const defbg = getSettings()["bg"]["value"]
-const defaudio = getSettings()["audio"]["value"]
+console.log(getSettings())
 
-ToggleBG(defbg)
-ToggleAudio(defaudio)
+try {
+    const defbg = getSettings()["bg"]["value"]
+    const defaudio = getSettings()["audio"]["value"]
+
+    ToggleBG(defbg)
+    ToggleAudio(defaudio)
+}
+catch {}
 
 //Bg toggle
 function ToggleBG(value) {
