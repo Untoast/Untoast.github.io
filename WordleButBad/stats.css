@@ -37,6 +37,7 @@
     display: inline-masonry;
 }
 
+
 .page {
     transition: .5s;
     filter: opacity(1);
@@ -58,13 +59,16 @@
 
 #closePopup {
     position: absolute;
-    top: 0;;
+    top: 0;
     right: 0;
     padding: 10px!important;
     margin: 0 !important;
     background: transparent;
     border: none;
     font-size: 3rem;
+    border-radius: 1ch;
+    width: 5rem !important;
+    height: 5rem !important;
 }
 
 .ItemNumber {

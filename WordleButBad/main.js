@@ -156,42 +156,43 @@ function Noti(Text, color, keep) {
 }
 
 async function Main() {
-    const response = await fetch('words.txt')
-    const text = await response.text(); // Get the text content
-    const words = text.split('\n'); // Split the text into an array of words
+    const response = await fetch('words.txt');
+    const text = await response.text();
+    const words = text.split('\n').map(word => word.trim().toLowerCase());
 
     async function getRandomLine() {
-        return words[Math.floor(Math.random() * words.length)]; // Return a random word
+        return words[Math.floor(Math.random() * words.length)];
     }
-    wordToGuess = await getRandomLine()
-    wordToGuess = wordToGuess.toLowerCase()
-    console.log(wordToGuess)
-    
+
+    let wordToGuess = await getRandomLine();
+    wordToGuess = wordToGuess.toLowerCase();
+
     function UpdateAttempts(Amt) {
-        Attempts.style.filter = "opacity(0)"
+        Attempts.style.filter = "opacity(0)";
         setTimeout(() => {
-            Attempts.innerHTML = Amt
-            Attempts.style.filter = "opacity(1)"
+            Attempts.innerHTML = Amt;
+            Attempts.style.filter = "opacity(1)";
         }, 150);
     }
-    async function ApplyRules(Word) {
-        if (Guessed) { return }
-        if (Waiting) { Noti("Wait for previous guess to finish...", "#ff0000"); return }
-        CurrentIndex++
 
-        Word = Word.toLowerCase()
-        //Test if word had already been submitted
+    async function ApplyRules(Word) {
+        if (Guessed) { return; }
+        if (Waiting) { Noti("Wait for previous guess to finish...", "#ff0000"); return; }
+        CurrentIndex++;
+
+        Word = Word.toLowerCase();
+        // Test if word had already been submitted
         if (SubmittedWords.includes(Word)) {
-            Noti("Word has already been submitted!", "#ff0000")
-            return
+            Noti("Word has already been submitted!", "#ff0000");
+            return;
         }
         if (Word.length != 5) {
-            Noti("Word length must be 5 characters!", "#ff0000")
-            return
+            Noti("Word length must be 5 characters!", "#ff0000");
+            return;
         }
         if (!words.includes(Word)) {
-            Noti("Word is not in list!", "#ff0000")
-            return
+            Noti("Word is not in list!", "#ff0000");
+            return;
         }
         Waiting = true
         Guesses++
@@ -450,6 +451,7 @@ async function Main() {
         event.preventDefault();
         if (Guessed) { return }
         Guessed = true
+        new Audio("Resources/Audio/Win.wav").play()
         TransitionNewGame()
         setTimeout(() => {
         Noti("Then gobble harder! you gave up after " + Guesses + " guesses, the word was \'" + wordToGuess + "\'!", "#ff0000", true)
