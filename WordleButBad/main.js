@@ -601,9 +601,13 @@ console.log(getSettings())
 
 try {
     const defbg = getSettings()["bg"]["value"]
-    const defaudio = getSettings()["audio"]["value"]
 
     ToggleBG(defbg)
+}
+catch {}
+try {
+    const defaudio = getSettings()["audio"]["value"]
+
     ToggleAudio(defaudio)
 }
 catch {}
