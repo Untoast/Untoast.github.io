@@ -1,0 +1,25 @@
+{
+    "page_info": {
+        "version": 1.6,
+        "gibson_text": "Gibson."
+    },
+    
+    "custom_theming": {
+        "enabled": false,   
+        "default_toggled": false,
+        "theme_name": "default"
+    },
+
+    "give_up_data": {
+        "give_up_text": {
+            "type": "default",
+            "default": "You gave up after ",
+            "custom": "You squawked after "
+        },
+        "gibson_text": {
+            "type": "default",
+            "default": "Nice job bud, you gave up after ",
+            "custom": "Then gobble harder! You squawked after "
+        }
+    }
+}

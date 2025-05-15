@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Untoast's Wordle Thingy</title>
     <link rel="icon" type="image/x-icon" href="https://untoast.github.io/wordle.png">
-    <div id="bg" class=""></div>
+    <div id="bg" class="bghidden"></div>
 
     <form id="GuessForm">
         <button id="Stop" class="Input" type="button">Give Up</button>
@@ -22,11 +22,11 @@
         <div id="Attempts">0</div>
     </div>
 
-    <button id="Gibson" class="Input">TURKEY!</button>
+    <button id="Gibson" class="Input">Gibson</button>
     <div id="result">.</div>
     <div id="Guesses"></div>
-    <label id="Version">Version 1.57 (Thanksgiving)</label>
-    <div id ="settings">
+    <label id="Version">Version</label>
+    <div id = "settings", class="hidden">
         <div id = "bgb"   class="setting Input" style="border-radius: 1rem 0 0 1rem;">
             <label>Old Bg</label>
         </div>
@@ -36,7 +36,7 @@
     </div>
     <div id="keyboard"></div>
     <div id="SQUARE"></div>
-    <script src="keyboard.js"></script>
+    <script src="Assets/js/keyboard.js"></script>
 <body id ="body">
     
     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -53,16 +53,17 @@
     </div>
     <!-- Overlay Popup -->
     <div id="overlay" class="overlay">
-        <div class="popup" id = "popup">
+        <div style="position: absolute; margin: 0;" class="popup pagefix" id = "Fakepopup"></div>
+        <div style="visibility: hidden;" class="popuph" id = "popup">
             <button id="closePopup" class="Input" style="z-index: 100000; aspect-ratio: 1 / 1;"><img src="Resources/Images/CloseIcon.svg" alt="Expand Screen Space" id="expandImage" class="errorImage" style="z-index: 100000; width: 1.5rem; margin: 0rem !important;"></button>
             <div class="page hiddenpage" id = "statsMain" style="padding: 0px 2rem 0px 2rem;">
                 <h2 class="text" style="background: none; border: none;  font-size: clamp(50px, 5vw, 24px); padding-bottom: 0; padding-top: 0; margin-top: 1rem;">Statistics</h2>
                 <h3 class="text" style="background: none; border: none; margin-top: 0; font-size: clamp(30px, 5vw, 24px);">In this session you have</h3>
-                <p class="text" style="color: #00ff00;">Correctly Guessed <span style="padding: 0;" id="StatsGuessed">{Number}</span> words</p>
-                <p class="text" style="color: #ff0000;">Given up <span style="padding: 0;" id="StatsGivenUp">{Number}</span> words</p> 
+                <p class="text" style="color: #3cf33c;">Correctly Guessed <span style="padding: 0;" id="StatsGuessed">{Number}</span> words</p>
+                <p class="text" style="color: #ff3333;">Given up <span style="padding: 0;" id="StatsGivenUp">{Number}</span> words</p> 
                 <p class="text">Your average guess amount is <span style="padding: 0;" id="StatsAvgGuesses">{Number}</span></p> 
                 <p class="text">You've given up <span style="padding: 0;" id="StatsGivenUpPerc">{Number}</span> of the time</p> 
-                <p style="font-size: smaller; text-align: center;">Stats reset on page close.</p> 
+                <p style="font-size: smaller; text-align: center;">Stats reset when tab closes.</p> 
                 <div style="display: flex; justify-content: center;">
                     <button style="width: 70%;" id="WordsPageButton" class="Input">Words</button>
                 </div>
@@ -74,7 +75,7 @@
                 <!--    <div class="StatsWordDiv"><span class="LetterSpan CorrectBackground">?</span><span class="LetterSpan CorrectBackground">?</span><span class="LetterSpan CorrectBackground">?</span><span class="LetterSpan CorrectBackground">?</span><span class="LetterSpan CorrectBackground">?</span><span style="min-width: fit-content;" class="LetterSpan">12</span></div> -->
                 </div>
 
-                <p style="font-size: clamp(1px, 1vw, 24px); text-align: center; margin-bottom: 0;">Words that have a red colored number are words you gave up on.</p> <br\> <p style="font-size: clamp(1px, 1vw, 24px); text-align: center; margin-top: 0;">Number after word indicates amount of guesses.</p> 
+                <p style="font-size: smaller; text-align: center;">Number indicates amount of guesses.</p> 
                 <div style="display: flex; justify-content: center;">
                     <button id="wordsBack" class="Input" style="width: 70%;">Back</button>
                 </div>
@@ -87,11 +88,12 @@
         </div>
         
     </div>
-    <link rel="stylesheet" href="stats.css">
+    <link rel="stylesheet" href="Assets/css/stats.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-    <script src="main.js"></script>
-    <script src="popup.js"></script>
-    <link rel="stylesheet" href="main.css">
+    <script src="Assets/js/main.js"></script>
+    <script src="Assets/js/popup.js"></script>
+    <script src="Assets/js/applyPageInfo.js"></script>
+    <link rel="stylesheet" href="Assets/css/main.css">
     
     
 </body>
