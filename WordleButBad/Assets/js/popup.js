@@ -100,6 +100,7 @@ StatsGivenUpPerc.innerHTML = GivenUpPercent + "%"
 // DisplayWord("Sleep", '4', true, {1: "WrongPosBackground", 2: "CorrectBackground", 3: "IncorrectBackground", 4: "CorrectBackground", 5: "CorrectBackground"})
 
 var can = false
+var adjust = true
 
 //Page changers
 async function SetPage(prev, to) {
@@ -120,14 +121,13 @@ async function SetPage(prev, to) {
 async function fix() {
     await SetPage(document.getElementById("NoStats"), mainpage)
 
-    activePage = document.getElementsByClassName("page")[0]
-    toRect = activePage.getBoundingClientRect();
+    toRect = document.getElementsByClassName("page")[0].getBoundingClientRect();
     FakePopup.style.width = toRect.width + "px";
     FakePopup.style.height = toRect.height + "px";
 }
 
 //Set page to main if stats
-if (ScoresArray.length > 0) {fix()}
+if (ScoresArray.length > 0) {fix(); adjust = false}
 //
 
 wordsPageButton.addEventListener("click", (e) => {
@@ -142,8 +142,13 @@ wordsBack.addEventListener("click", (e) => {
 statsButton.addEventListener('click', () => {
     overlay.style.display = 'flex'; // Show the overlay
     setTimeout(() => {
-        if (!can) {
-            toRect = document.getElementsByClassName("page")[0].getBoundingClientRect();
+        if (can == false) {
+            doc = document.getElementsByClassName("page")[0]
+            if (adjust) {
+                doc = popup
+                adjust = false
+            }
+            toRect = doc.getBoundingClientRect();
             FakePopup.style.width = toRect.width + "px";
             FakePopup.style.height = toRect.height + "px";
         }
@@ -176,14 +181,10 @@ overlay.addEventListener('click', (event) => {
 });
 
 
-document.addEventListener('resize', () => {
-    const toRect = mainpage.getBoundingClientRect();
-    FakePopup.style.width = toRect.width + "px";
-    FakePopup.style.height = toRect.height + "px";
-});
-
-document.addEventListener("click", (e) => {
+obs = document.addEventListener("click", (e) => {
     if (can) {
         FakePopup.classList.remove("pagefix");
+        document.removeEventListener("click", obs);
     }
 })
+
