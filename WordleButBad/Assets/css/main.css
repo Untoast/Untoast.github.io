@@ -507,7 +507,7 @@ span {
     line-height: 3rem;
     font-size: calc(2.5rem + 0.5vw);
     transition: 0.2s;
-    border-radius: 7px;
+    border-radius: .5ch;
     padding: .5%;
     color: #fff;
     font-family: 'Fira Mono', monospace;
