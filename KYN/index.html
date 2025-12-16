@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div id="kirk" class="center">
+  <h1> Kirk year calculator </h1>
+  <div id="input-container" class="center round-outline">
+    <button class= "infoButton input round-outline button" id = "info">?</button>
+    <label> Input a Year or Date </label>
+    <input class="input round-outline textinput" id="year" placeholder="MM/DD/YYYY or YYYY" type="text" value=""></input>
+    <input class="input round-outline button" id="submit" type="button" value="Kirkulate Year"></input>
+  </div>
+  <div id="KYN-info" class="center round-outline hidden">
+    <button class= "infoButton input round-outline button" id = "closeInfo">x</button>
+    <label style="padding-bottom: 3%;"> K.Y.N. (Kirk Year Notation) </label>
+    <div id="KYN-container">
+      <div class="KYN-info-section">
+        <label>BK (Before Kirk)</label>
+        <span style="text-align: center;">Describes any time before Charlie Kirk was born, counting in reverse. For example 1992 converts to 1 BK.</span>
+      </div>
+      <div class="KYN-info-section">
+        <label>DK (During Kirk)</label>
+        <span style="text-align: center;">Describes any time Charlie Kirk was alive, the year corresponds directly to his age at the time. For example 2000 converts to 6 DK.</span>
+      </div>
+      <div class="KYN-info-section">
+        <label>AK (After Kirk)</label>
+        <span style="text-align: center;">Describes time after Charlie Kirks death. For Example 2030 converts to 4 AK.</span>
+      </div>
+    </div>
+  </div>
+  <div id="year-container" class="center round-outline">
+      <label> KYN Equivalent </label>
+      <span id ="text">Input a date for it to be converted to K.Y.N.</span>
+  </div>
+</div>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
